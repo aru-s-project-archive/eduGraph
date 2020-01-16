@@ -14,7 +14,6 @@ import Profile from "./pages/Profile/index";
 import Courses from "./pages/Courses/index";
 import NotFound from "./pages/NotFound";
 import Notes from "./pages/Notes";
-import Temp from "./pages/temp";
 
 const routing = (
   <Router>
@@ -26,7 +25,6 @@ const routing = (
       <Route path="/profile" component={Profile} />
       <Route path="/courses" component={Courses} />
       <Route path="/notes" component={Notes} />
-      <Route path="/temp" component={Temp}></Route>
       <Route component={NotFound} />
     </Switch>
   </Router>

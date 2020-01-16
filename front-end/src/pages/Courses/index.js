@@ -17,8 +17,17 @@ class Courses extends PureComponent {
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.setView = this.setView.bind(this);
-  }
+    this.setCourse = this.setCourse.bind(this);
 
+    if (props.location.state) {
+      this.state.course = props.location.state.course;
+    }
+  }
+  setCourse = course => {
+    this.setState({
+      course: course
+    });
+  };
   setView = view => {
     this.setState({
       view: view
@@ -31,6 +40,11 @@ class Courses extends PureComponent {
       userData: await (
         await fetch(
           `https://us-central1-edugraph-78964.cloudfunctions.net/app/user/${this.state.userId}`
+        )
+      ).json(),
+      courseData: await (
+        await fetch(
+          `https://us-central1-edugraph-78964.cloudfunctions.net/app/user/allCourses/${this.state.userId}`
         )
       ).json()
     });
@@ -54,7 +68,10 @@ class Courses extends PureComponent {
   };
 
   render() {
-    console.log("user data", this.state.userData);
+    var selectedCourseData;
+    if (this.state.courseData) {
+      selectedCourseData = this.state.courseData[this.state.course];
+    }
     return (
       <div style={this.classes().main}>
         <Navbar />
@@ -62,6 +79,7 @@ class Courses extends PureComponent {
           <Col xs={4} style={{ height: "90%", width: "33%" }}>
             <Menu
               setView={this.setView}
+              setCourse={this.setCourse}
               style={{ "margin-bottom": "100px" }}
               courses={this.state.userData.currCourse}
             />
@@ -72,6 +90,7 @@ class Courses extends PureComponent {
                 width={0.64582 * this.state.width}
                 height={0.9 * this.state.height}
                 style={{ marginLeft: 0 }}
+                course={selectedCourseData}
               />
             ) : (
               <Summary />

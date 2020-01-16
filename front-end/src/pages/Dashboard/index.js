@@ -29,7 +29,7 @@ class Dashboard extends Component {
       <div>
         <Navbar />
         <Container class="margin">
-          <NotesBubble />
+          <NotesBubble notes={this.state.userData.notes} />
           <CoursesBubble courseData={this.state.userData.currCourse} />
           <TimeTableBubble />
         </Container>

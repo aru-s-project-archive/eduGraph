@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import Menu from "./components/menu";
 import { Row, Col } from "react-bootstrap";
 import Navbar from "../../globalComponents/Navbar";
+import Display from "./components/display";
 
 class Notes extends PureComponent {
   constructor(props) {
@@ -14,6 +15,7 @@ class Notes extends PureComponent {
       userId: "R8IpJr6shgUowKN0jWDQrE5ycCE2"
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.setNote = this.setNote.bind(this);
   }
   componentDidMount = async () => {
     this.updateWindowDimensions();
@@ -42,7 +44,14 @@ class Notes extends PureComponent {
       }
     };
   };
+  setNote = (course, topic) => {
+    this.setState({
+      course: course,
+      topic: topic
+    });
+  };
   render() {
+    // console.log(this.state.userData.notes);
     return (
       <div style={this.classes().main}>
         <Navbar />
@@ -51,10 +60,23 @@ class Notes extends PureComponent {
             <Menu
               setView={this.setView}
               style={{ "margin-bottom": "100px" }}
-              courses={this.state.userData.currCourse}
+              notes={this.state.userData.notes}
+              setNote={this.setNote}
             />
           </Col>
-          <Col></Col>
+          <Col style={{ overflow: "scroll" }}>
+            {this.state.course ? (
+              <Display
+                course={this.state.course}
+                topic={this.state.topic}
+                notes={
+                  this.state.userData.notes[this.state.course][this.state.topic]
+                }
+              />
+            ) : (
+              ""
+            )}
+          </Col>
         </Row>
       </div>
     );

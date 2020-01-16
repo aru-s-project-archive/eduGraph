@@ -10,42 +10,36 @@ class Profile extends Component {
     super(props);
 
     this.state = {
-      profileInfo: {
-        firstName: "Romin",
-        lastName: "Irani",
-        jobTitleName: "Developer",
-        preferredFullName: "Romin Irani",
-        employeeCode: "E1",
-        region: "CA",
-        phoneNumber: "408-1234567",
-        emailAddress: "romin.k.irani@gmail.com"
-      },
-      attentionInfo: {
-        latest: {
-          drowziness: "5",
-          "productive time": "20",
-          "total time spent": "50",
-          "productive percentage": "40%",
-          "distracting websites": "10"
-        },
-        average: {
-          drowziness: "6",
-          "productive time": "15",
-          "total time spent": "60",
-          "productive percentage": "25%",
-          "distracting websites": "9"
-        }
-      }
+      userId: "R8IpJr6shgUowKN0jWDQrE5ycCE2"
     };
   }
+  componentDidMount = async () => {
+    this.setState({
+      userData: await (
+        await fetch(
+          `https://us-central1-edugraph-78964.cloudfunctions.net/app/user/${this.state.userId}`
+        )
+      ).json()
+    });
+  };
 
   render() {
+    console.log("user data", this.state.userData);
+    let details,
+      scores = {};
+    if (this.state.userData) {
+      details = this.state.userData.details;
+      if (this.state.userData.scores) {
+        if (this.state.userData.scores.attention)
+          scores = this.state.userData.scores.attention;
+      }
+    }
     return (
       <div>
         <Navbar />
-        <Container style={{ marginTop: "5%", "margin-bottom": "5%" }}>
-          <ProfileInfo uploaded={false} info={this.state.profileInfo} />
-          <Attention info={this.state.attentionInfo} />
+        <Container style={{ marginTop: "5%", marginBottom: "5%" }}>
+          <ProfileInfo uploaded={true} info={details} />
+          <Attention scores={scores} />
           <TimeTable />
         </Container>
       </div>

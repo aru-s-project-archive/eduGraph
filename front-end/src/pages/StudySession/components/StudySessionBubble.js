@@ -26,14 +26,16 @@ class StudySession extends PureComponent {
           <Row>
             <Col />
             <Col xs={1}>
-              <Button variant="success">Start</Button>
+              <Button
+                variant="success"
+                onClick={() => {
+                  window.open("https://youtube.com");
+                }}
+              >
+                Launch
+              </Button>
             </Col>
-            <Col xs={1}>
-              <Button variant="warning">Break</Button>
-            </Col>
-            <Col xs={1}>
-              <Button variant="danger">Stop</Button>
-            </Col>
+
             <Col />
           </Row>
         </Container>
