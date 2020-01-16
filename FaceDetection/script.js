@@ -9,6 +9,8 @@ var yawnCounter = 0
 var falseYawnCounter = 0
 var yawns = 0
 var yawning = false
+var startTime = Date.now()
+var totalTimeAway = 0
 
 // const startTime = new Date
 // var base = window.location.href;
@@ -16,11 +18,11 @@ var yawning = false
 
 var url = "https://cors-anywhere.herokuapp.com/edugraph-78964.firebaseapp.com/models/"
 
-
+window.localStorage.setItem("data", "");
 function startVideo() {
   var handleSuccess = function (stream) {
     player.srcObject = stream;
-    console.log(player.srcObject)
+    document.getElementById("record").innerText = 'Recording'
   };
 
   navigator.mediaDevices.getUserMedia({ audio: true, video: true })
@@ -54,6 +56,7 @@ play.onclick = () => {
             endTime: Date.now()
           }
         )
+        totalTimeAway += timeAway
       }
       awayTimer = 0
       //console.log(detections[0].landmarks.getMouth())
@@ -85,10 +88,50 @@ play.onclick = () => {
 }
 
 
-end.onclick = () => {
+end.onclick = async () => {
+  document.getElementById("record").innerText = ''
   console.log(yawns)
   clearInterval(inter)
   inter = null;
+
+  var totalTime = Date.now() - startTime
+  var response = {
+    totalTime: totalTime,
+    awayTimes: awayTimes,
+    totalTimeAway: totalTimeAway,
+    numberYawns: yawns
+  }
+
+  var raw = {
+    userId: "R8IpJr6shgUowKN0jWDQrE5ycCE2",
+    data: response
+  }
+  raw = JSON.stringify(raw)
+  //console.log(raw)
+
+  window.localStorage.setItem("data", raw);
+
+  // var settings = {
+  //   "url": "https://us-central1-edugraph-78964.cloudfunctions.net/app/attention/uploadDetails",
+  //   "method": "POST",
+  //   "timeout": 0,
+  //   "headers": {
+  //     "Content-Type": "application/javascript"
+  //   },
+  //   "data": raw,
+  // };
+
+
+  // $.ajax(settings).done(function (response) {
+  //   console.log(response);
+  // });
+
+  // await fetch("https://us-central1-edugraph-78964.cloudfunctions.net/app/attention/uploadDetails", requestOptions)
+  // let text = await resp.text();
+
+  //   .then(response => response.text())
+  //   .then(result => console.log(result))
+  //   .catch(error => console.log('error', error));
 }
 
 function isYawning(mouth) {

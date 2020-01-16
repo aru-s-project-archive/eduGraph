@@ -1,33 +1,44 @@
 {
-    "name": "eduGraph",
-    "version": "1.0",
-    "description": "Helps you focus on your studies",
-    "manifest_version": 2,
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": true
-      },
-    "permissions": ["storage","declarativeContent","tabs","notifications"],
-    "browser_action": {
-        "default_icon": {
-          "16": "images/get_started16.png",
-          "32": "images/get_started32.png",
-          "48": "images/get_started48.png",
-          "128": "images/get_started128.png"
-        }
-      },
-      "icons": {
-        "16": "images/get_started16.png",
-        "32": "images/get_started32.png",
-        "48": "images/get_started48.png",
-        "128": "images/get_started128.png"
-      },
-      "content_scripts": [
-        {
-          "matches": ["https://*.youtube.com/watch*"],
-          "run_at": "document_end",
-          "js": ["contentScript.js"]
-        }
+  "name": "eduGraph",
+  "version": "1.0",
+  "description": "Helps you focus on your studies",
+  "manifest_version": 2,
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "permissions": [
+    "storage",
+    "declarativeContent",
+    "tabs",
+    "notifications",
+    "https://us-central1-edugraph-78964.cloudfunctions.net/*"
+  ],
+  "browser_action": {
+    "default_icon": {
+      "16": "images/get_started16.png",
+      "32": "images/get_started32.png",
+      "48": "images/get_started48.png",
+      "128": "images/get_started128.png"
+    }
+  },
+  "icons": {
+    "16": "images/get_started16.png",
+    "32": "images/get_started32.png",
+    "48": "images/get_started48.png",
+    "128": "images/get_started128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "file:///Users/pranaymathur/Desktop/eduGraph/FaceDetection/index.html"
+      ],
+      "run_at": "document_end",
+      "js": [
+        "contentScript.js"
       ]
-      
-  }
+    }
+  ]
+}
