@@ -4,59 +4,11 @@ import {
   Button,
   Dropdown,
   DropdownButton,
-  ButtonGroup,
   Container,
   Col
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { ReactComponent as ProfileIcon } from "../icons/account_circle-24px.svg";
-
-class CustomDropdown extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { page: false };
-    this.classes = {
-      linkBlack: {
-        textDecoration: "none",
-        color: "black"
-      },
-      linkWhite: {
-        textDecoration: "none",
-        color: "white"
-      }
-    };
-  }
-  render() {
-    return (
-      <Dropdown as={ButtonGroup}>
-        <Button
-          variant={this.props.variant ? this.props.variant : "info"}
-          disabled={this.props.disabled}
-        >
-          <Link to={this.props["main-link"]} style={this.classes.linkWhite}>
-            {this.props.name}
-          </Link>
-        </Button>
-        <Dropdown.Toggle
-          split
-          variant={this.props.variant ? this.props.variant : "info"}
-          id="dropdown-split-basic"
-        />
-        <Dropdown.Menu>
-          {this.props.options.map((val, index) => {
-            return (
-              <Dropdown.Item>
-                <Link style={this.classes.linkBlack} to={val.link}>
-                  {val.name}
-                </Link>
-              </Dropdown.Item>
-            );
-          })}
-        </Dropdown.Menu>
-      </Dropdown>
-    );
-  }
-}
+import { ReactComponent as ProfileIcon } from "../resources/account_circle-24px.svg";
 
 class CustomNavbar extends React.Component {
   constructor(props) {
@@ -70,6 +22,12 @@ class CustomNavbar extends React.Component {
       linkWhite: {
         textDecoration: "none",
         color: "white"
+      },
+      mystyle: {
+        fontSize: "2rem",
+        fontFamily: "ChalkboardSE-Bold",
+        textDecoration: "none",
+        color: "black"
       }
     };
   }
@@ -80,25 +38,25 @@ class CustomNavbar extends React.Component {
           <Container>
             <Col xs={2}>
               <Navbar.Brand>
-                <Link to="./dashboard" style={this.classes.linkBlack}>
+                <Link to="./dashboard" style={this.classes.mystyle}>
                   EduGraph
                 </Link>
               </Navbar.Brand>
             </Col>
 
             <Col xs={1}>
-              <Button variant="info">Notes</Button>
+              <Button variant="info">
+                <Link to="./notes" style={this.classes.linkWhite}>
+                  Notes
+                </Link>
+              </Button>
             </Col>
             <Col xs={1}>
-              <CustomDropdown
-                name="Courses"
-                main-link="./courses"
-                options={[
-                  { name: "Knowledge Graphs", link: "./courses" },
-                  { name: "Summary", link: "./courses" },
-                  { name: "Questions", link: "./courses" }
-                ]}
-              />
+              <Button variant="info">
+                <Link style={this.classes.linkWhite} to="./courses">
+                  Courses
+                </Link>
+              </Button>
             </Col>
             <Col />
             <Col xs={1}>
@@ -116,7 +74,11 @@ class CustomNavbar extends React.Component {
                     Profile
                   </Link>
                 </Dropdown.Item>
-                <Dropdown.Item href="">Logout</Dropdown.Item>
+                <Dropdown.Item href="">
+                  <Link style={this.classes.linkBlack} to="./">
+                    Logout
+                  </Link>
+                </Dropdown.Item>
               </DropdownButton>
             </Col>
           </Container>

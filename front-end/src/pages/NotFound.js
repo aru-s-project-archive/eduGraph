@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react";
 import Navbar from "../globalComponents/Navbar";
 import { Card, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 class NotFound extends PureComponent {
   constructor(props) {
     super(props);
@@ -37,7 +39,18 @@ class NotFound extends PureComponent {
             <Card.Text>
               Looks like the page you're looking for doesn't exist
             </Card.Text>
-            <Button variant="primary">Go Home</Button>
+
+            <Button variant="danger">
+              <Link
+                to="./dashboard"
+                style={{
+                  textDecoration: "none",
+                  color: "white"
+                }}
+              >
+                Go Home
+              </Link>
+            </Button>
           </Card.Body>
         </Card>
       </div>

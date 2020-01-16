@@ -14,7 +14,7 @@ class TimeTable extends Component {
   render() {
     return (
       <Jumbotron style={{ height: "400px", background: "#90ee90" }}>
-        <h2 style={{ "margin-top": "-2.5%", color: "#ffffff" }}>Time Table</h2>
+        <h2 style={{ marginTop: "-2.5%", color: "#ffffff" }}>Time Table</h2>
         <ColoredLine />
         {this.state.uploaded ? (
           <div>time table uploaded</div>
@@ -22,11 +22,11 @@ class TimeTable extends Component {
           <Container style={{ padding: "10% 10%", height: "10%" }}>
             <Row>
               <Col />
-              <Col xs={3}>
+              <Col xs={2}>
                 <Button
-                  style={{ "background-color": "#ffffff", color: "#000000" }}
+                  style={{ backgroundColor: "#ffffff", color: "#000000" }}
                 >
-                  Upload Time Table
+                  Coming soon...
                 </Button>
               </Col>
               <Col />

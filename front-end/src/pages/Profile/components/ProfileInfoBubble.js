@@ -21,10 +21,8 @@ class ProfileInfoBubble extends PureComponent {
       return (
         <Jumbotron style={{ background: "#90ee90" }}>
           <Container>
-            <Row style={{ "margin-top": "-2%" }}>
-              <h2 style={{ "margin-top": "-2.5%", color: "#ffffff" }}>
-                Profile
-              </h2>
+            <Row style={{ marginTop: "-2%" }}>
+              <h2 style={{ marginTop: "-2.5%", color: "#ffffff" }}>Profile</h2>
             </Row>
             <ColoredLine />
             <ListGroup>
@@ -40,11 +38,9 @@ class ProfileInfoBubble extends PureComponent {
     } else {
       return (
         <Jumbotron style={{ background: "#90ee90" }}>
-          <Row style={{ "margin-top": "-2%" }}>
+          <Row style={{ marginTop: "-2%" }}>
             <Col>
-              <h2 style={{ "margin-top": "-2.5%", color: "#ffffff" }}>
-                Profile
-              </h2>
+              <h2 style={{ marginTop: "-2.5%", color: "#ffffff" }}>Profile</h2>
             </Col>
           </Row>
           <ColoredLine />
@@ -53,7 +49,7 @@ class ProfileInfoBubble extends PureComponent {
               <Col />
               <Col xs={3}>
                 <Button
-                  style={{ "background-color": "#ffffff", color: "#000000" }}
+                  style={{ backgroundColor: "#ffffff", color: "#000000" }}
                 >
                   Upload Degree Audit
                 </Button>

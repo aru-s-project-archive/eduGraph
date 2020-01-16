@@ -17,9 +17,9 @@ class NotesBubble extends PureComponent {
   render() {
     return (
       <Jumbotron
-        style={{ "margin-top": "40px", height: "500px", background: "#90ee90" }}
+        style={{ marginTop: "40px", height: "500px", background: "#90ee90" }}
       >
-        <h2 style={{ "margin-top": "-2.5%", color: "#ffffff" }}>Notes</h2>
+        <h2 style={{ marginTop: "-2.5%", color: "#ffffff" }}>Notes</h2>
         <ColoredLine color="#ffffff" />
         <ListGroup
           style={{

@@ -1,29 +1,20 @@
 import React, { PureComponent } from "react";
-import Navbar from "../../globalComponents/Navbar";
-import { Row, Col } from "react-bootstrap";
 import Menu from "./components/menu";
-import Graph from "./components/graph";
-import Summary from "./components/summary";
+import { Row, Col } from "react-bootstrap";
+import Navbar from "../../globalComponents/Navbar";
 
-class Courses extends PureComponent {
+class Notes extends PureComponent {
   constructor(props) {
     super(props);
+
     this.state = {
       width: 0,
       height: 0,
-      view: "knowledgeGraph",
-      userId: "R8IpJr6shgUowKN0jWDQrE5ycCE2",
-      userData: false
+      userData: "",
+      userId: "R8IpJr6shgUowKN0jWDQrE5ycCE2"
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    this.setView = this.setView.bind(this);
   }
-
-  setView = view => {
-    this.setState({
-      view: view
-    });
-  };
   componentDidMount = async () => {
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
@@ -35,7 +26,6 @@ class Courses extends PureComponent {
       ).json()
     });
   };
-
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateWindowDimensions);
   }
@@ -52,9 +42,7 @@ class Courses extends PureComponent {
       }
     };
   };
-
   render() {
-    console.log("user data", this.state.userData);
     return (
       <div style={this.classes().main}>
         <Navbar />
@@ -66,21 +54,11 @@ class Courses extends PureComponent {
               courses={this.state.userData.currCourse}
             />
           </Col>
-          <Col>
-            {this.state.view === "knowledgeGraph" ? (
-              <Graph
-                width={0.64582 * this.state.width}
-                height={0.9 * this.state.height}
-                style={{ marginLeft: 0 }}
-              />
-            ) : (
-              <Summary />
-            )}
-          </Col>
+          <Col></Col>
         </Row>
       </div>
     );
   }
 }
 
-export default Courses;
+export default Notes;

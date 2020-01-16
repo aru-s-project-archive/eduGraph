@@ -4,6 +4,8 @@ import { Row, Container, Col, ListGroup } from "react-bootstrap";
 class Menu extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {};
     this.classes = {
       margin: {
         marginTop: "3%",
@@ -14,29 +16,7 @@ class Menu extends Component {
         "margin-bottom": "1%"
       }
     };
-
-    let courses = [];
-    for (let i = 0; i < 10; i++) {
-      courses.push("course " + i);
-    }
-    this.state = {
-      courses: courses,
-      selectedCourse: courses[0],
-      view: "knowledgeGraph"
-    };
   }
-  selectCourse = course => {
-    this.setState({
-      selectedCourse: course
-    });
-    console.log("this.state.selectedCourse", this.state.selectedCourse);
-  };
-  selectView = view => {
-    this.setState({
-      view: view
-    });
-    this.props.setView(view);
-  };
 
   render() {
     return (
@@ -66,7 +46,7 @@ class Menu extends Component {
                   }}
                 >
                   {this.props.courses
-                    ? this.props.courses.map((val, index) => (
+                    ? this.props.courses.map((val, Menu) => (
                         <ListGroup.Item
                           action
                           variant={

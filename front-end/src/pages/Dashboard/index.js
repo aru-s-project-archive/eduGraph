@@ -8,8 +8,21 @@ import NotesBubble from "../../globalComponents/NotesBubble";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      userId: "R8IpJr6shgUowKN0jWDQrE5ycCE2",
+      userData: false
+    };
   }
+
+  componentDidMount = async () => {
+    this.setState({
+      userData: await (
+        await fetch(
+          `https://us-central1-edugraph-78964.cloudfunctions.net/app/user/${this.state.userId}`
+        )
+      ).json()
+    });
+  };
 
   render() {
     return (
@@ -17,7 +30,7 @@ class Dashboard extends Component {
         <Navbar />
         <Container class="margin">
           <NotesBubble />
-          <CoursesBubble />
+          <CoursesBubble courseData={this.state.userData.currCourse} />
           <TimeTableBubble />
         </Container>
       </div>
