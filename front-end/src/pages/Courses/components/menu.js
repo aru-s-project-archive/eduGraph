@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Container, Col, ListGroup } from "react-bootstrap";
+import { Row, Container, Col, ListGroup, Spinner } from "react-bootstrap";
 
 class Menu extends Component {
   constructor(props) {
@@ -15,13 +15,8 @@ class Menu extends Component {
       }
     };
 
-    let courses = [];
-    for (let i = 0; i < 10; i++) {
-      courses.push("course " + i);
-    }
     this.state = {
-      courses: courses,
-      selectedCourse: courses[0],
+      selectedCourse: false,
       view: "knowledgeGraph"
     };
   }
@@ -29,7 +24,7 @@ class Menu extends Component {
     this.setState({
       selectedCourse: course
     });
-    console.log("this.state.selectedCourse", this.state.selectedCourse);
+    this.props.setCourse(course);
   };
   selectView = view => {
     this.setState({
@@ -65,24 +60,30 @@ class Menu extends Component {
                     overflow: "scroll"
                   }}
                 >
-                  {this.props.courses
-                    ? this.props.courses.map((val, index) => (
-                        <ListGroup.Item
-                          action
-                          variant={
-                            this.state.selectedCourse === val
-                              ? "primary"
-                              : "light"
-                          }
-                          onClick={() => {
-                            this.selectCourse(val);
-                          }}
-                          key={val}
-                        >
-                          {val}
-                        </ListGroup.Item>
-                      ))
-                    : ""}
+                  {this.props.courses ? (
+                    this.props.courses.map((val, index) => (
+                      <ListGroup.Item
+                        action
+                        variant={
+                          this.state.selectedCourse === val
+                            ? "primary"
+                            : "light"
+                        }
+                        onClick={() => {
+                          this.selectCourse(val);
+                        }}
+                        key={val}
+                      >
+                        {val}
+                      </ListGroup.Item>
+                    ))
+                  ) : (
+                    <Container>
+                      <Spinner animation="border" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </Spinner>
+                    </Container>
+                  )}
                 </ListGroup>
               </Col>
             </Row>

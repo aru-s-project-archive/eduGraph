@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Jumbotron, ListGroup } from "react-bootstrap";
+import { Jumbotron, ListGroup, Container, Spinner } from "react-bootstrap";
 import ColoredLine from "./ColoredLine";
+import { Link } from "react-router-dom";
 
 class CoursesBubble extends Component {
   constructor(props) {
@@ -15,7 +16,6 @@ class CoursesBubble extends Component {
   }
 
   render() {
-    console.log("props", this.props.userData);
     return (
       <Jumbotron
         style={{
@@ -34,13 +34,28 @@ class CoursesBubble extends Component {
             overflow: "scroll"
           }}
         >
-          {this.props.courseData
-            ? this.props.courseData.map((val, index) => (
-                <ListGroup.Item action variant="light">
+          {this.props.courseData ? (
+            this.props.courseData.map((val, index) => (
+              <ListGroup.Item action variant="light">
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to={{ pathname: "./courses", state: { course: val } }}
+                >
                   {val}
-                </ListGroup.Item>
-              ))
-            : ""}
+                </Link>
+              </ListGroup.Item>
+            ))
+          ) : (
+            <Container>
+              <Spinner
+                style={{ color: "white" }}
+                animation="border"
+                role="status"
+              >
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </Container>
+          )}
         </ListGroup>
       </Jumbotron>
     );

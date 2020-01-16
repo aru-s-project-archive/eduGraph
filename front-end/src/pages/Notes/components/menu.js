@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Row, Container, Col, ListGroup } from "react-bootstrap";
+import { Row, Container, Col, ListGroup, Spinner } from "react-bootstrap";
 
 class Menu extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = { selectCourse: false };
     this.classes = {
       margin: {
         marginTop: "3%",
@@ -17,13 +17,37 @@ class Menu extends Component {
       }
     };
   }
-
+  selectCourse = course => {
+    this.setState({
+      selectedCourse: course
+    });
+  };
+  setNote = (course, topic) => {
+    this.setState({
+      course: course,
+      topic: topic
+    });
+    this.props.setNote(course, topic);
+  };
   render() {
+    let notesOuter = this.props.notes;
+    let notesInner = [];
+    if (notesOuter) {
+      for (var courseId in notesOuter) {
+        for (var topic in notesOuter[courseId]) {
+          notesInner.push({
+            topic: topic,
+            course: courseId
+          });
+        }
+      }
+    }
+    console.log("state", this.state);
     return (
       <div style={{ height: "100%" }}>
         <Row
           style={{
-            height: "50%",
+            height: "100%",
             backgroundColor: "#90ee90",
             color: "#ffffff"
           }}
@@ -32,7 +56,7 @@ class Menu extends Component {
             <Row>
               <Col xs={1} />
               <Col>
-                <h2>Courses</h2>
+                <h2>Notes</h2>
               </Col>
             </Row>
             <Row style={{ height: "100%" }}>
@@ -45,65 +69,38 @@ class Menu extends Component {
                     overflow: "scroll"
                   }}
                 >
-                  {this.props.courses
-                    ? this.props.courses.map((val, Menu) => (
-                        <ListGroup.Item
-                          action
-                          variant={
-                            this.state.selectedCourse === val
-                              ? "primary"
-                              : "light"
-                          }
-                          onClick={() => {
-                            this.selectCourse(val);
-                          }}
-                          key={val}
-                        >
-                          {val}
-                        </ListGroup.Item>
-                      ))
-                    : ""}
-                </ListGroup>
-              </Col>
-            </Row>
-          </Container>
-        </Row>
-        <Row style={{ height: "50%", backgroundColor: "#17a2b8" }}>
-          <Container style={this.classes.margin}>
-            <Row>
-              <Col xs={1} />
-              <Col>
-                <h2
-                  style={{
-                    color: "#ffffff"
-                  }}
-                >
-                  View
-                </h2>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={1} />
-              <Col>
-                <ListGroup>
-                  <ListGroup.Item
-                    action
-                    variant={
-                      this.state.view === "knowledgeGraph" ? "primary" : "light"
-                    }
-                    onClick={() => this.selectView("knowledgeGraph")}
-                  >
-                    Knowledge Graph
-                  </ListGroup.Item>
-                  <ListGroup.Item
-                    action
-                    variant={
-                      this.state.view === "summary" ? "primary" : "light"
-                    }
-                    onClick={() => this.selectView("summary")}
-                  >
-                    Summary
-                  </ListGroup.Item>
+                  {notesInner.length ? (
+                    notesInner.map((val, Menu) => (
+                      <ListGroup.Item
+                        action
+                        variant={
+                          val.course === this.state.course &&
+                          val.topic === this.state.topic
+                            ? "info"
+                            : "light"
+                        }
+                        onClick={() => {
+                          this.setNote(val.course, val.topic);
+                        }}
+                        key={val.topic + val.course}
+                      >
+                        <Row>
+                          <Col>
+                            <h5>{val.course}</h5>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col>{val.topic}</Col>
+                        </Row>
+                      </ListGroup.Item>
+                    ))
+                  ) : (
+                    <Container>
+                      <Spinner animation="border" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </Spinner>
+                    </Container>
+                  )}
                 </ListGroup>
               </Col>
             </Row>

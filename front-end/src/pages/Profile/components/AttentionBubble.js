@@ -1,5 +1,12 @@
 import React, { PureComponent } from "react";
-import { Jumbotron, Row, Col, ListGroup } from "react-bootstrap";
+import {
+  Jumbotron,
+  Row,
+  Col,
+  ListGroup,
+  Spinner,
+  Container
+} from "react-bootstrap";
 import ColoredLine from "../../../globalComponents/ColoredLine";
 
 class AttentionAnalyticsBubble extends PureComponent {
@@ -10,6 +17,29 @@ class AttentionAnalyticsBubble extends PureComponent {
   }
 
   render() {
+    let len = this.props.scores.length;
+    let latest = this.props.scores[len - 1];
+    let average = {};
+    let keys;
+    if (len) {
+      keys = Object.keys(latest);
+      for (let i = 0; i < len; i++) {
+        for (var key in this.props.scores[i]) {
+          if (key === "awayTimes") {
+            average[key] += this.props.scores[i][key].length;
+          } else if (average[key]) {
+            average[key] += this.props.scores[i][key];
+          } else {
+            average[key] = this.props.scores[i][key];
+          }
+        }
+      }
+      for (key in average) {
+        average[key] = parseInt(average[key] / len);
+      }
+      console.log("average", average);
+      latest.awayTimes = latest.awayTimes.length;
+    }
     return (
       <Jumbotron style={{ background: "#90ee90" }}>
         <Row style={{ marginTop: "-2%" }}>
@@ -19,11 +49,19 @@ class AttentionAnalyticsBubble extends PureComponent {
             </h2>
             <ColoredLine />
             <ListGroup>
-              {Object.keys(this.props.info.latest).map((value, index) => (
-                <ListGroup.Item>
-                  {value} : {this.props.info.latest[value]}
-                </ListGroup.Item>
-              ))}
+              {latest ? (
+                keys.map((value, index) => (
+                  <ListGroup.Item key={index}>
+                    {value} : {latest[value] ? latest[value] : 0}
+                  </ListGroup.Item>
+                ))
+              ) : (
+                <Container style={{ color: "white" }}>
+                  <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </Spinner>
+                </Container>
+              )}
             </ListGroup>
           </Col>
           <Col>
@@ -32,11 +70,19 @@ class AttentionAnalyticsBubble extends PureComponent {
             </h2>
             <ColoredLine />
             <ListGroup>
-              {Object.keys(this.props.info.average).map((value, index) => (
-                <ListGroup.Item>
-                  {value} : {this.props.info.average[value]}
-                </ListGroup.Item>
-              ))}
+              {Object.keys(average).length ? (
+                keys.map((val, index) => (
+                  <ListGroup.Item>
+                    {val} : {average[val] ? average[val] : 0}
+                  </ListGroup.Item>
+                ))
+              ) : (
+                <Container style={{ color: "white" }}>
+                  <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </Spinner>
+                </Container>
+              )}
             </ListGroup>
           </Col>
         </Row>

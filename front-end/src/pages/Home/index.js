@@ -1,4 +1,4 @@
-import React, { createRef } from "react";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Gif from "../../resources/sleepy.gif";
@@ -25,7 +25,7 @@ class Main extends React.Component {
     return (
       <div>
         <p style={this.mystyle}>EduGraph</p>
-        <img style={this.gifpos} src={Gif} />
+        <img alt="gif" style={this.gifpos} src={Gif} />
       </div>
     );
   }

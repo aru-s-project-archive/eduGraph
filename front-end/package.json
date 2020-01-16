@@ -16,6 +16,7 @@
     "react-force-graph-3d": "^1.13.5",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
+    "react-video-tag": "0.0.10",
     "three-spritetext": "^1.2.1"
   },
   "scripts": {

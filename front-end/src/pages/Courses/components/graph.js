@@ -59,17 +59,42 @@ class App extends React.Component {
 
   fgRef = createRef();
 
-  handleHover = node => {};
+  makeNodeData = courseTopics => {
+    if (!courseTopics) {
+      return { nodes: [], links: [] };
+    }
+    var nodeData = { nodes: [], links: [] };
+    for (var topic in courseTopics.topics) {
+      nodeData.nodes.push({
+        id: topic,
+        val: 1,
+        color: "red"
+      });
+    }
+    for (var topic in courseTopics.topics) {
+      let i = 0;
+      for (var link in courseTopics.topics[topic].links) {
+        if (i === 5) break;
+        let currTarget = link.split("/")[1];
+        nodeData.links.push({
+          source: topic,
+          target: currTarget
+        });
+        i++;
+      }
+    }
+    return nodeData;
+  };
 
   render() {
-    console.log("fgRef", this.fgRef);
+    console.log("course data", this.props.course);
     return (
       <div>
         <ForceGraph3D
           width={this.props.width}
           height={this.props.height}
           backgroundColor="white"
-          graphData={this.nodeData}
+          graphData={this.makeNodeData(this.props.course)}
           onNodeClick={this.handleClick}
           onNodeHover={this.handleHover}
           ref={this.fgRef}
