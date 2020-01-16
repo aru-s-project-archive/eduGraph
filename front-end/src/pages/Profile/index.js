@@ -43,7 +43,7 @@ class Profile extends Component {
     return (
       <div>
         <Navbar />
-        <Container style={{ "margin-top": "5%", "margin-bottom": "5%" }}>
+        <Container style={{ marginTop: "5%", "margin-bottom": "5%" }}>
           <ProfileInfo uploaded={false} info={this.state.profileInfo} />
           <Attention info={this.state.attentionInfo} />
           <TimeTable />

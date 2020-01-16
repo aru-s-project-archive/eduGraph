@@ -1,8 +1,8 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { Jumbotron, ListGroup } from "react-bootstrap";
 import ColoredLine from "./ColoredLine";
 
-class CoursesBubble extends PureComponent {
+class CoursesBubble extends Component {
   constructor(props) {
     super(props);
     let courses = [];
@@ -15,6 +15,7 @@ class CoursesBubble extends PureComponent {
   }
 
   render() {
+    console.log("props", this.props.userData);
     return (
       <Jumbotron
         style={{
@@ -23,7 +24,7 @@ class CoursesBubble extends PureComponent {
           background: "#90ee90"
         }}
       >
-        <h2 style={{ "margin-top": "-2.5%", color: "#ffffff" }}>Courses</h2>
+        <h2 style={{ marginTop: "-2.5%", color: "#ffffff" }}>Courses</h2>
         <ColoredLine />
         <ListGroup
           style={{
@@ -33,11 +34,13 @@ class CoursesBubble extends PureComponent {
             overflow: "scroll"
           }}
         >
-          {this.state.courses.map((val, index) => (
-            <ListGroup.Item action variant="light">
-              {val}
-            </ListGroup.Item>
-          ))}
+          {this.props.courseData
+            ? this.props.courseData.map((val, index) => (
+                <ListGroup.Item action variant="light">
+                  {val}
+                </ListGroup.Item>
+              ))
+            : ""}
         </ListGroup>
       </Jumbotron>
     );

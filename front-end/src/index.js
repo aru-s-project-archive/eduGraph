@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./pages/Graph";
+
 import * as serviceWorker from "./serviceWorker";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 // import temp from "./pages/Summary";
@@ -9,20 +9,22 @@ import CustomNavbar from "./globalComponents/Navbar";
 import StudySession from "./pages/StudySession/index";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import Home from "./pages/Home/index";
 import Profile from "./pages/Profile/index";
 import Courses from "./pages/Courses/index";
 import NotFound from "./pages/NotFound";
+import Notes from "./pages/Notes";
 
 const routing = (
   <Router>
     <Switch>
-      {/* <Route exact path="/"></Route> */}
-      <Route path="/course/graph" component={App} />
+      <Route exact path="/" component={Home}></Route>
       <Route path="/testing" component={CustomNavbar} />
       <Route path="/session" component={StudySession} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/profile" component={Profile} />
       <Route path="/courses" component={Courses} />
+      <Route path="/notes" component={Notes} />
       <Route component={NotFound} />
     </Switch>
   </Router>

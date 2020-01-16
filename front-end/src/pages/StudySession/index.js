@@ -16,7 +16,7 @@ class StudySession extends React.Component {
     return (
       <div>
         <Navbar />
-        <Container style={{ "margin-top": "10%" }}>
+        <Container style={{ marginTop: "10%" }}>
           <StudySessionBubble
             class="vertical-center"
             title="Ready to start studying?"

@@ -12,7 +12,7 @@ class StudySession extends PureComponent {
     return (
       <Jumbotron>
         <Container>
-          <Row style={{ "margin-top": "-2.5%" }}>
+          <Row style={{ marginTop: "-2.5%" }}>
             <Col />
             <Col xs={6}>
               <h1>{this.props.title}</h1>

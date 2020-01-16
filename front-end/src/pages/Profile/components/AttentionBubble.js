@@ -12,9 +12,9 @@ class AttentionAnalyticsBubble extends PureComponent {
   render() {
     return (
       <Jumbotron style={{ background: "#90ee90" }}>
-        <Row style={{ "margin-top": "-2%" }}>
+        <Row style={{ marginTop: "-2%" }}>
           <Col>
-            <h2 style={{ "margin-top": "-2.5%", color: "#ffffff" }}>
+            <h2 style={{ marginTop: "-2.5%", color: "#ffffff" }}>
               Latest Session
             </h2>
             <ColoredLine />
@@ -27,7 +27,7 @@ class AttentionAnalyticsBubble extends PureComponent {
             </ListGroup>
           </Col>
           <Col>
-            <h2 style={{ "margin-top": "-2.5%", color: "#ffffff" }}>
+            <h2 style={{ marginTop: "-2.5%", color: "#ffffff" }}>
               Average Session
             </h2>
             <ColoredLine />
