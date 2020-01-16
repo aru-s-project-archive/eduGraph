@@ -5,6 +5,16 @@ import spacy
 import json
 #import en_core_web_lg
 
+import requests
+
+url = "https://us-central1-edugraph-78964.cloudfunctions.net/app/attention/R8IpJr6shgUowKN0jWDQrE5ycCE2"
+
+payload = {}
+headers= {}
+
+response = requests.request("GET", url, headers=headers, data = payload)
+
+keywords = eval(response.text.encode('utf8'))
 
 nlp = spacy.load("en_core_web_lg")
 
@@ -13,7 +23,9 @@ nlp = spacy.load("en_core_web_lg")
 def similarity(title):
     print(title)
     max = 0
-    keywords =["algorithms", "time complexity", "data structures"]
+    for keyword in keywords:
+        if keyword.lower() in title.lower():
+            return 1
     title = nlp(title)
     for keyword in keywords:
         score = title.similarity(nlp(keyword))
@@ -42,7 +54,7 @@ def handle():
 def getter():
     title = request.args.get('title')
     if request.method == "GET":
-        r = {'relevant': str(similarity(title) > 0.6)}
+        r = {'relevant': str(similarity(title) > 0.7)}
         r = json.dumps(r)
         loaded_r = json.loads(r)
         return loaded_r

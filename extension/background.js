@@ -1,17 +1,4 @@
-chrome.runtime.onInstalled.addListener(function() {
-    chrome.storage.sync.set({color: '#3aa757'}, function() {
-      console.log("The color is green.");
-    });
-    chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-        chrome.declarativeContent.onPageChanged.addRules([{
-          conditions: [new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: {hostContains: 'youtube.com'},
-          })
-          ],
-              actions: [new chrome.declarativeContent.ShowPageAction()]
-        }]);
-      });
-  });
+
 
 var relevant = ["https://www.youtube.com/"]
 
@@ -34,20 +21,22 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         return data.json()
       }).then(res=>{
         console.log(res)
-        var opt = {
-          type: "basic",
-          title: "Distracted?",
-          message: "It seems that the website you are on is unrelated to your coursework. Time to refocus?",
-          iconUrl: "images/get_started48.png",
-          buttons: [
-            {title: 'Mark as Relevant'},
-            {title: 'Go Back'}
-          ]
+        if(res.relevant=='False'){
+          var opt = {
+            type: "basic",
+            title: "Distracted?",
+            message: "It seems that the website you are on is unrelated to your coursework. Time to refocus?",
+            iconUrl: "images/get_started48.png",
+            buttons: [
+              {title: 'Mark as Relevant'},
+              {title: 'Go Back'}
+            ]
+          }
+          chrome.notifications.create('distractedNotif', opt,async function() {
+            await new Promise(r => setTimeout(r, 5000));
+            chrome.notifications.clear('distractedNotif')
+          })
         }
-        chrome.notifications.create('distractedNotif', opt,async function() {
-          await new Promise(r => setTimeout(r, 5000));
-          chrome.notifications.clear('distractedNotif')
-        })
       })
     }
   }
