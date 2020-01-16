@@ -1,6 +1,8 @@
 
-
+var startTime = Date.now()
+var distractedTime = 0
 var relevant = ["https://www.youtube.com/"]
+var distractedStart = 0
 
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
@@ -22,6 +24,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
       }).then(res=>{
         console.log(res)
         if(res.relevant=='False'){
+          distractedStart = Date.now()
+          
           var opt = {
             type: "basic",
             title: "Distracted?",
@@ -36,6 +40,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
             await new Promise(r => setTimeout(r, 5000));
             chrome.notifications.clear('distractedNotif')
           })
+        } else{
+          if(!distractedStart){
+          distractedTime+=Date.now()-distractedStart
+          distractedStart = 0
+          }
         }
       })
     }
@@ -46,6 +55,10 @@ chrome.notifications.onButtonClicked.addListener(function (notifId,buttonIndex){
     chrome.tabs.goBack()
   }else{
     relevant.push(window.location.href)
+    distractedTime+=Date.now()-distractedStart
+    distractedStart=0
   }
 });
+
+setInterval(()=>{console.log(distractedTime)},1000)
 
