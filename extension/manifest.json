@@ -1,15 +1,14 @@
 {
-    "name": "Getting Started Example",
+    "name": "eduGraph",
     "version": "1.0",
-    "description": "Build an Extension!",
+    "description": "Helps you focus on your studies",
     "manifest_version": 2,
     "background": {
         "scripts": ["background.js"],
         "persistent": true
       },
     "permissions": ["storage","declarativeContent","tabs","notifications"],
-    "page_action": {
-        "default_popup": "popup.html",
+    "browser_action": {
         "default_icon": {
           "16": "images/get_started16.png",
           "32": "images/get_started32.png",

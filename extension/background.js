@@ -1,18 +1,8 @@
-chrome.runtime.onInstalled.addListener(function() {
-    chrome.storage.sync.set({color: '#3aa757'}, function() {
-      console.log("The color is green.");
-    });
-    chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-        chrome.declarativeContent.onPageChanged.addRules([{
-          conditions: [new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: {hostContains: 'youtube.com'},
-          })
-          ],
-              actions: [new chrome.declarativeContent.ShowPageAction()]
-        }]);
-      });
-  });
 
+var startTime = Date.now()
+var distractedTime = 0
+var relevant = ["https://www.youtube.com/"]
+var distractedStart = 0
 
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
@@ -27,32 +17,48 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     var title = changeInfo.title
     var goog = title.includes('Google Search')
     var newTab = title.includes('New Tab')
-    var yt = title.includes('YouTube') && !title.includes('-')
-    if(!(goog || newTab || yt)){
+    var rel = relevant.includes(tab.url)
+    if(!(goog || newTab || rel)){
       fetch('http://127.0.0.1:5000/data?title='+title,{method: "GET"}).then(data=>{
         return data.json()
       }).then(res=>{
         console.log(res)
-        var opt = {
-          type: "basic",
-          title: "Distracted?",
-          message: "It seems that the website you are on is unrelated to your coursework. Time to refocus?",
-          iconUrl: "images/get_started48.png",
-          buttons: [
-            {title: 'Buy Now'}
-          ]
+        if(res.relevant=='False'){
+          distractedStart = Date.now()
+          
+          var opt = {
+            type: "basic",
+            title: "Distracted?",
+            message: "It seems that the website you are on is unrelated to your coursework. Time to refocus?",
+            iconUrl: "images/get_started48.png",
+            buttons: [
+              {title: 'Mark as Relevant'},
+              {title: 'Go Back'}
+            ]
+          }
+          chrome.notifications.create('distractedNotif', opt,async function() {
+            await new Promise(r => setTimeout(r, 5000));
+            chrome.notifications.clear('distractedNotif')
+          })
+        } else{
+          if(!distractedStart){
+          distractedTime+=Date.now()-distractedStart
+          distractedStart = 0
+          }
         }
-        chrome.notifications.create('distractedNotif', opt,async function() {
-          await new Promise(r => setTimeout(r, 5000));
-          chrome.notifications.clear('distractedNotif')
-        })
       })
     }
   }
 }); 
-chrome.notifications.onButtonClicked.addListener(replyBtnClick);
+chrome.notifications.onButtonClicked.addListener(function (notifId,buttonIndex){
+  if(buttonIndex){
+    chrome.tabs.goBack()
+  }else{
+    relevant.push(window.location.href)
+    distractedTime+=Date.now()-distractedStart
+    distractedStart=0
+  }
+});
 
+setInterval(()=>{console.log(distractedTime)},1000)
 
-function replyBtnClick() {
-  console.log('jsancxiubn')
-}
