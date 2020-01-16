@@ -1,0 +1,22 @@
+
+  <script defer src="face-api.min.js"></script>
+  <script defer src="script.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      position: absolute;
+    }
+  </style>
+
+  <button id='play' style="position:absolute;top:10px">click</button>
+  <button id='end' style="position:absolute;top:40px">end</button>
+  <video id="player" width="0" height="0" autoplay muted></video>
