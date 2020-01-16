@@ -13,6 +13,7 @@ chrome.runtime.onInstalled.addListener(function() {
       });
   });
 
+var relevant = ["https://www.youtube.com/"]
 
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
@@ -27,8 +28,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     var title = changeInfo.title
     var goog = title.includes('Google Search')
     var newTab = title.includes('New Tab')
-    var yt = title.includes('YouTube') && !title.includes('-')
-    if(!(goog || newTab || yt)){
+    var rel = relevant.includes(tab.url)
+    if(!(goog || newTab || rel)){
       fetch('http://127.0.0.1:5000/data?title='+title,{method: "GET"}).then(data=>{
         return data.json()
       }).then(res=>{
@@ -39,7 +40,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
           message: "It seems that the website you are on is unrelated to your coursework. Time to refocus?",
           iconUrl: "images/get_started48.png",
           buttons: [
-            {title: 'Buy Now'}
+            {title: 'Mark as Relevant'},
+            {title: 'Go Back'}
           ]
         }
         chrome.notifications.create('distractedNotif', opt,async function() {
@@ -50,9 +52,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     }
   }
 }); 
-chrome.notifications.onButtonClicked.addListener(replyBtnClick);
+chrome.notifications.onButtonClicked.addListener(function (notifId,buttonIndex){
+  if(buttonIndex){
+    chrome.tabs.goBack()
+  }else{
+    relevant.push(window.location.href)
+  }
+});
 
-
-function replyBtnClick() {
-  console.log('jsancxiubn')
-}
