@@ -59,4 +59,5 @@ def getter():
         loaded_r = json.loads(r)
         return loaded_r
 #str(similarity(title) > 0.6)
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run()
