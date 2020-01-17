@@ -8,6 +8,7 @@ from tqdm import tqdm
 import time
 import csv
 import json
+import os
 import requests
 
 def process_data(folder_name,course_name,course_intro,courseId):
@@ -183,7 +184,7 @@ def process_data(folder_name,course_name,course_intro,courseId):
 
     a = json.dumps(course)
 
-
+    print(a)
     url = "https://us-central1-edugraph-78964.cloudfunctions.net/app/courses/upload/"
 
     payload = a
