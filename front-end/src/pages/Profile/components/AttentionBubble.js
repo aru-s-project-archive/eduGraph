@@ -37,7 +37,7 @@ class AttentionAnalyticsBubble extends PureComponent {
       for (key in average) {
         average[key] = parseInt(average[key] / len);
       }
-      console.log("average", average);
+
       latest.awayTimes = latest.awayTimes.length;
     }
     return (

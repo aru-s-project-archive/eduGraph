@@ -18,6 +18,8 @@ class Courses extends PureComponent {
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.setView = this.setView.bind(this);
     this.setCourse = this.setCourse.bind(this);
+    this.setTopic = this.setTopic.bind(this);
+    this.setSingleTopic = this.setSingleTopic.bind(this);
 
     if (props.location.state) {
       this.state.course = props.location.state.course;
@@ -31,6 +33,18 @@ class Courses extends PureComponent {
   setView = view => {
     this.setState({
       view: view
+    });
+  };
+  setTopic = (topic, topicCourse) => {
+    this.setState({
+      topic: topic,
+      topicCourse: topicCourse,
+      view: "summary"
+    });
+  };
+  setSingleTopic = boolean => {
+    this.setState({
+      singleTopic: boolean
     });
   };
   componentDidMount = async () => {
@@ -72,6 +86,7 @@ class Courses extends PureComponent {
     if (this.state.courseData) {
       selectedCourseData = this.state.courseData[this.state.course];
     }
+    console.log("selected view", this.state.view);
     return (
       <div style={this.classes().main}>
         <Navbar />
@@ -82,18 +97,30 @@ class Courses extends PureComponent {
               setCourse={this.setCourse}
               style={{ "margin-bottom": "100px" }}
               courses={this.state.userData.currCourse}
+              selectedView={this.state.view}
+              setTopic={this.setTopic}
+              setSingleTopic={this.setSingleTopic}
             />
           </Col>
           <Col>
             {this.state.view === "knowledgeGraph" ? (
               <Graph
+                setView={this.setView}
                 width={0.64582 * this.state.width}
                 height={0.9 * this.state.height}
                 style={{ marginLeft: 0 }}
                 course={selectedCourseData}
+                courseId={this.state.course}
+                setTopic={this.setTopic}
+                setSingleTopic={this.setSingleTopic}
               />
             ) : (
-              <Summary />
+              <Summary
+                courseData={selectedCourseData}
+                topic={this.state.topic}
+                course={this.state.course}
+                singleTopic={this.state.singleTopic}
+              />
             )}
           </Col>
         </Row>

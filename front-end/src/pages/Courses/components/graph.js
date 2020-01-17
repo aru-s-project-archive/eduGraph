@@ -10,28 +10,6 @@ class App extends React.Component {
     this.state = {
       redirect: false
     };
-
-    this.nodeData = {
-      nodes: [
-        {
-          id: "topic 1",
-          val: 1,
-          color: "red"
-        },
-        {
-          id: "topic 2",
-          val: 10,
-          color: "blue"
-        }
-      ],
-      links: [
-        {
-          source: "topic 1",
-          target: "topic 2",
-          color: "#000000"
-        }
-      ]
-    };
   }
 
   handleClick = node => {
@@ -46,12 +24,9 @@ class App extends React.Component {
       );
     }
     if (this.prevClicked === node) {
-      this.setState({
-        redirect: node,
-        currentlyHovered: false,
-        zoom: 10,
-        fontSize: 10
-      });
+      this.props.setTopic(node.id, this.props.courseId);
+      this.props.setSingleTopic(true);
+      this.props.setView("summary");
     } else {
       this.prevClicked = node;
     }
@@ -87,27 +62,23 @@ class App extends React.Component {
   };
 
   render() {
-    console.log("course data", this.props.course);
     return (
-      <div>
-        <ForceGraph3D
-          width={this.props.width}
-          height={this.props.height}
-          backgroundColor="white"
-          graphData={this.makeNodeData(this.props.course)}
-          onNodeClick={this.handleClick}
-          onNodeHover={this.handleHover}
-          ref={this.fgRef}
-          nodeThreeObject={node => {
-            const sprite = new SpriteText(node.id);
-            sprite.color = node.color;
-            sprite.textHeight = 8;
-            return sprite;
-          }}
-          linkWidth={1}
-        />
-        {this.state.redirect ? <Redirect to="/temp"></Redirect> : " "}
-      </div>
+      <ForceGraph3D
+        width={this.props.width}
+        height={this.props.height}
+        backgroundColor="white"
+        graphData={this.makeNodeData(this.props.course)}
+        onNodeClick={this.handleClick}
+        onNodeHover={this.handleHover}
+        ref={this.fgRef}
+        nodeThreeObject={node => {
+          const sprite = new SpriteText(node.id);
+          sprite.color = node.color;
+          sprite.textHeight = 8;
+          return sprite;
+        }}
+        linkWidth={1}
+      />
     );
   }
 }

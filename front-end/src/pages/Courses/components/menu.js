@@ -16,20 +16,26 @@ class Menu extends Component {
     };
 
     this.state = {
-      selectedCourse: false,
-      view: "knowledgeGraph"
+      selectedCourse: false
     };
   }
+  componentDidMount = () => {
+    this.setState({
+      view: this.props.selectView ? this.props.selectView : "knowledgeGraph"
+    });
+  };
   selectCourse = course => {
     this.setState({
       selectedCourse: course
     });
+    this.props.setSingleTopic(false);
     this.props.setCourse(course);
   };
   selectView = view => {
     this.setState({
       view: view
     });
+    this.props.setSingleTopic(false);
     this.props.setView(view);
   };
 
@@ -110,7 +116,9 @@ class Menu extends Component {
                   <ListGroup.Item
                     action
                     variant={
-                      this.state.view === "knowledgeGraph" ? "primary" : "light"
+                      this.props.selectedView == "knowledgeGraph"
+                        ? "info"
+                        : "light"
                     }
                     onClick={() => this.selectView("knowledgeGraph")}
                   >
@@ -119,7 +127,7 @@ class Menu extends Component {
                   <ListGroup.Item
                     action
                     variant={
-                      this.state.view === "summary" ? "primary" : "light"
+                      this.props.selectedView == "summary" ? "info" : "light"
                     }
                     onClick={() => this.selectView("summary")}
                   >
