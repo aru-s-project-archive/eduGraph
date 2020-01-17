@@ -51,7 +51,6 @@ class Notes extends PureComponent {
     });
   };
   render() {
-    // console.log(this.state.userData.notes);
     return (
       <div style={this.classes().main}>
         <Navbar />

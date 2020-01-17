@@ -24,7 +24,6 @@ class Profile extends Component {
   };
 
   render() {
-    console.log("user data", this.state.userData);
     let details,
       scores = {};
     if (this.state.userData) {
