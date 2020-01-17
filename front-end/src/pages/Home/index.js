@@ -9,7 +9,7 @@ import Footer from "../../globalComponents/Footer";
 
 class Main extends React.Component {
   mystyle = {
-    fontSize: 60,
+    fontSize: "2rem",
     fontFamily: "ChalkboardSE-Bold"
   };
 
@@ -25,31 +25,22 @@ class Main extends React.Component {
     top: "20px"
   };
 
-  parastyle = {
-    fontFamily: "Noteworthy-Bold",
-    fontSize: 15,
-    textAlign: "center",
-    padding: 30
-  };
-
   parastyle1 = {
-    position: "absolute",
     fontFamily: "Noteworthy-Bold",
-    fontSize: 15,
-    textAlign: "center"
+    fontSize: "1.2rem"
   };
 
   render() {
     return (
       <div style={{ "overflow-x": "hidden" }}>
-        <Row style={{ background: "rgb(233, 236, 239)" }}>
+        <Row style={{ background: "rgb(233, 236, 239)", height: "100" }}>
           <Container>
             <Row>
-              <Col xs={3}>
-                <p style={this.mystyle}>eduGraph</p>,
+              <Col xs={3} style={{ paddingTop: "10px" }}>
+                <p style={this.mystyle}>EduGraph</p>,
               </Col>
               <Col />
-              <Col xs={3} style={{ "padding-top": "3%" }}>
+              <Col xs={3} style={{ "padding-top": "20px" }}>
                 <Button style={this.buttonstyle} variant="secondary">
                   <Link
                     to="./dashboard"
@@ -66,21 +57,41 @@ class Main extends React.Component {
           <Row style={{ "margin-top": "20" }}>
             <Col style={{ "padding-top": "5%" }}>
               <Row style={{ "margin-bottom": "20" }}>
-                <p style={this.parastyle}>
-                  <Container style={{ width: "80%" }}>
+                <p style={this.parastyle1}>
+                  <Container>
                     EduGraph is a software that makes learning efforless and
-                    tranquil. We build a knowledge graph for each course which
-                    helps better tracking of topics and helps assosiate
-                    different concepts
+                    tranquil.
                   </Container>
                 </p>
               </Row>
-              <Row>
+              <Row style={{ height: "40px" }} />
+              <Row style={{ "margin-bottom": "20" }}>
                 <p style={this.parastyle1}>
-                  <Container style={{ width: "80%" }}>
-                    EduGraph also tracks your attention at different levels and
-                    gives you a score based on your attention and grades. With
-                    eduGraph, learning is accelerated and simplified
+                  <Container>
+                    We build a knowledge graph using Natural Language Processing
+                    for each course, this helps you keep better track of topics
+                    and helps assosiate different concepts
+                  </Container>
+                </p>
+              </Row>
+              <Row style={{ height: "40px" }} />
+              <Row style={{ "margin-bottom": "20" }}>
+                <p style={this.parastyle1}>
+                  <Container>
+                    Upload your notes onto eduGraph, we run semantic analysis to
+                    organize these notes according to the most important
+                    categories.
+                  </Container>
+                </p>
+              </Row>
+              <Row style={{ height: "40px" }} />
+              <Row style={{ "margin-bottom": "20" }}>
+                <p style={this.parastyle1}>
+                  <Container>
+                    EduGraph also tracks your attention at different levels
+                    during studying, we have a chrome extension which betters
+                    your study session. We use the camera and chrome urls to
+                    track how, productive you are while studying
                   </Container>
                 </p>
               </Row>
