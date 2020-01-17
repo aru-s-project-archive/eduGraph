@@ -3,7 +3,9 @@ import Navbar from "../../globalComponents/Navbar";
 import ProfileInfo from "./components/ProfileInfoBubble";
 import Attention from "./components/AttentionBubble";
 import { Container } from "react-bootstrap";
-import TimeTable from "../../globalComponents/TimeTableBubble";
+// import TimeTable from "../../globalComponents/TimeTableBubble";
+import UploadNotes from "../../globalComponents/UploadNotes";
+import Footer from "../../globalComponents/Footer";
 
 class Profile extends Component {
   constructor(props) {
@@ -39,8 +41,10 @@ class Profile extends Component {
         <Container style={{ marginTop: "5%", marginBottom: "5%" }}>
           <ProfileInfo uploaded={true} info={details} />
           <Attention scores={scores} />
-          <TimeTable />
+          <UploadNotes />
+          {/* <TimeTable /> */}
         </Container>
+        <Footer />
       </div>
     );
   }

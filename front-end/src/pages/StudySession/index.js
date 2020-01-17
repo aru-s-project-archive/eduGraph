@@ -2,13 +2,14 @@ import React from "react";
 import Navbar from "../../globalComponents/Navbar";
 import StudySessionBubble from "./components/StudySessionBubble";
 import { Container } from "react-bootstrap";
+import Footer from "../../globalComponents/Footer";
 
 class StudySession extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tortor mi, feugiat sit amet dui sit amet, maximus consectetur urna. Proin lacinia libero non tellus lobortis laoreet. Vivamus felis ligula, auctor in laoreet vel, commodo id orci. Duis tempor nibh risus, vel vestibulum nisl gravida non. Praesent in iaculis sem, sit amet laoreet nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida dignissim arcu nec feugiat. Pellentesque interdum ligula vel lectus euismod, sed bibendum elit elementum."
+        "Our immersive study session, experience helps us track your study methods. While giving a clear description of what is going right and wrong!"
     };
   }
 

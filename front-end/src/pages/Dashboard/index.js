@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import Navbar from "../../globalComponents/Navbar";
-import TimeTableBubble from "../../globalComponents/TimeTableBubble";
+// import TimeTableBubble from "../../globalComponents/TimeTableBubble";
 import CoursesBubble from "../../globalComponents/CoursesBubble";
 import { Container } from "react-bootstrap";
 import NotesBubble from "../../globalComponents/NotesBubble";
+import Footer from "../../globalComponents/Footer";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -31,8 +32,9 @@ class Dashboard extends Component {
         <Container class="margin">
           <NotesBubble notes={this.state.userData.notes} />
           <CoursesBubble courseData={this.state.userData.currCourse} />
-          <TimeTableBubble />
+          {/* <TimeTableBubble /> */}
         </Container>
+        <Footer />
       </div>
     );
   }
