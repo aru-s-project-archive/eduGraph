@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Row, Container, Col, ListGroup, Spinner } from "react-bootstrap";
+import ColoredLine from "../../../globalComponents/ColoredLine";
 
 class Menu extends Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class Menu extends Component {
         }
       }
     }
-    console.log("state", this.state);
+
     return (
       <div style={{ height: "100%" }}>
         <Row
@@ -59,6 +60,7 @@ class Menu extends Component {
                 <h2>Notes</h2>
               </Col>
             </Row>
+            <ColoredLine />
             <Row style={{ height: "100%" }}>
               <Col xs={1} />
               <Col style={{ height: "100%" }}>
