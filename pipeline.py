@@ -6,7 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 import time
 t1 = time.perf_counter()
-f = open('content.txt','r',encoding='utf8', errors='ignore')
+f = open('DLcontent.txt','r',encoding='utf8', errors='ignore')
 text = f.read()
 text = text.replace('\n','.')
 nlp = spacy.load("en_core_web_lg")
@@ -86,7 +86,7 @@ def semantic_summary_extractor(similar,num_sentences = 8):
     return semantic_summary
 
 keys = []
-keyphrases = keyphrase_extractor('content.txt',num = 30)
+keyphrases = keyphrase_extractor('content.txt',num = 50)
 for key, weight in keyphrases:
     keys.append(key)
     print(key)
@@ -98,6 +98,6 @@ print(summarized)
 similar = similarity_generator(summarized,sents,nlp)
 semantic_sum = semantic_summary_extractor(similar,20)
 df = pd.DataFrame.from_dict(semantic_sum, orient="index")
-# df.to_csv("data.csv")
+df.to_csv("DLdata.csv")
 t2 = time.perf_counter()
 print("Time taken: {} seconds".format(t2-t1))

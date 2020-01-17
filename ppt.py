@@ -1,7 +1,8 @@
 from pptx import Presentation
+fo = open("DLcontent.txt", "w",encoding='utf8', errors='ignore')
 
-prs = Presentation('Part1.pptx')
-fo = open("content.txt", "w",encoding='utf8', errors='ignore')
+# for x in range(9):
+prs = Presentation('Digital Logic.pptx')
 # text_runs will be populated with a list of strings,
 # one for each text run in presentation
 for slide in prs.slides:
@@ -19,4 +20,3 @@ for slide in prs.slides:
 		print(elements)
 		fo.write(elements +'\n')
 	fo.write('\n')
-fo.close()
