@@ -34,7 +34,7 @@ murmurhash==1.0.2
 networkx==2.4
 neuralcoref==4.0
 nltk==3.4.5
-numpy==1.18.1
+numpy==1.22.0
 olefile==0.46
 pandas==0.25.3
 pdfminer.six==20181108
